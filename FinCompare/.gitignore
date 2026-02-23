@@ -1,0 +1,23 @@
+```text
+# Python environment
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+env/
+.env
+
+# Jupyter Notebooks
+.ipynb_checkpoints
+
+# Financial RAG Specifics
+*.pdf
+*.csv
+*.png
+*.xlsx
+chroma_db/
+temp_chart.png
+
+# OS files
+.DS_Store
+Thumbs.db
