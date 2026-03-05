@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+.env
+response.mp3
+*.log
+*.png
+*.jpg
+*.tmp
