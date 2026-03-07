@@ -1,0 +1,12 @@
+{
+  "brute_force_login": {
+    "technique_id": "T1110",
+    "name": "Brute Force",
+    "description": "Adversaries attempt many passwords to gain access."
+  },
+  "credential_stuffing": {
+    "technique_id": "T1110.004",
+    "name": "Credential Stuffing",
+    "description": "Attackers reuse stolen credentials from other breaches."
+  }
+}
