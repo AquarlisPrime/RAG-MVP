@@ -1,0 +1,14 @@
+{
+  "tools": [
+    {
+      "name": "parse_logs",
+      "description": "Extract IP addresses and detect brute-force attempts",
+      "command": "python .claude/skills/log-analyzer/scripts/parse_logs.py"
+    },
+    {
+      "name": "check_threat_intel",
+      "description": "Check reputation of suspicious IPs",
+      "command": "python .claude/skills/log-analyzer/scripts/check_threat_intel.py"
+    }
+  ]
+}
