@@ -6,23 +6,29 @@ Mar 12 10:22:43 sshd Failed password for root from 192.168.1.45
 Mar 12 10:22:45 sshd Failed password for root from 192.168.1.45
 Mar 12 10:23:10 sshd Accepted password for user from 10.0.0.2
 """
-import re
 
+import re
+from collections import Counter
+import gradio as gr
+
+# Extract IP addresses
 def parse_logs(log_text):
     pattern = r"from (\d+\.\d+\.\d+\.\d+)"
     ips = re.findall(pattern, log_text)
     return ips
 
-from collections import Counter
 
+# Detect brute force attempts
 def detect_bruteforce(log_text):
     ips = parse_logs(log_text)
     counts = Counter(ips)
 
-    suspicious = {ip:count for ip,count in counts.items() if count >=3}
+    suspicious = {ip: count for ip, count in counts.items() if count >= 3}
 
     return suspicious
 
+
+# Simulated threat intel lookup
 def ip_reputation(ip):
     malicious_ips = ["192.168.1.45"]
 
@@ -31,14 +37,16 @@ def ip_reputation(ip):
     else:
         return "Unknown"
 
-  def generate_report(log_text):
+
+# Generate SOC report
+def generate_report(log_text):
 
     threats = detect_bruteforce(log_text)
 
     if not threats:
-        return "No threat detected"
+        return "✅ No threat detected"
 
-    report = "⚠ Security Alert\n\n"
+    report = "⚠ SECURITY ALERT\n\n"
 
     for ip, attempts in threats.items():
         rep = ip_reputation(ip)
@@ -52,22 +60,26 @@ Risk Level: HIGH
 
 Recommendation:
 Block IP and investigate authentication logs
+
 """
 
     return report
 
+
 print(generate_report(logs))
 
-import gradio as gr
 
+# Gradio Interface
 def analyze(log_text):
     return generate_report(log_text)
 
+
 demo = gr.Interface(
     fn=analyze,
-    inputs="textbox",
+    inputs=gr.Textbox(lines=15, placeholder="Paste system logs here..."),
     outputs="textbox",
-    title="AI SOC Log Analyzer Agent"
+    title="AI SOC Log Analyzer Agent",
+    description="Detects brute-force login attempts and suspicious IP activity from security logs."
 )
 
 demo.launch()
